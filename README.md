@@ -1,50 +1,92 @@
-# Welcome to your Expo app 👋
+# Breakpoint Quiz
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo móvel criado com Expo e React Native para um quiz de tecnologia.
 
-## Get started
+## Visão geral
 
-1. Install dependencies
+O projeto contém uma interface simples com três telas principais:
+- Home: tela de boas-vindas com um botão para iniciar o quiz.
+- Perguntas: exibe a pergunta atual e opções de resposta.
+- Resultados: mostra o desempenho do usuário com pontuação e progresso.
 
-   ```bash
-   npm install
-   ```
+O app usa `expo-router` para navegação e componentes Expo para gradientes, ícones e animações.
 
-2. Start the app
+## Tecnologias
 
-   ```bash
-   npx expo start
-   ```
+- Expo
+- React Native
+- TypeScript
+- Expo Router
+- React Navigation
+- Expo Linear Gradient
+- React Native Circular Progress
+- Expo Haptics
 
-In the output, you'll find options to open the app in a
+## Estrutura do projeto
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- `app/`: rotas e telas do aplicativo
+  - `(tabs)/index.tsx`: tela inicial
+  - `(tabs)/questions.tsx`: tela de perguntas
+  - `(tabs)/results.tsx`: tela de resultados
+- `components/`: componentes reutilizáveis e botões
+- `src/Images/`: imagens usadas no app
+- `assets/images/`: ícones e imagens de splash
+- `scripts/`: scripts auxiliares, como `reset-project.js`
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Instalação
 
-## Get a fresh project
-
-When you're ready, run:
+1. Instale as dependências:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Inicie o projeto com Expo:
 
-## Learn more
+```bash
+npm start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Abra no emulador ou dispositivo:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm run android
+```
 
-## Join the community
+ou
 
-Join our community of developers creating universal apps.
+```bash
+npm run ios
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+ou
+
+```bash
+npm run web
+```
+
+## Scripts úteis
+
+- `npm start`: inicia o servidor Expo
+- `npm run android`: inicia no Android
+- `npm run ios`: inicia no iOS
+- `npm run web`: executa a versão web
+- `npm run lint`: executa o ESLint
+- `npm run reset-project`: limpa ou reinicia configurações do projeto (definido em `scripts/reset-project.js`)
+
+## Configuração Expo
+
+O projeto está configurado em `app.json` com:
+- `slug`: `Breakpoint_Quiz`
+- `orientation`: `portrait`
+- `scheme`: `breakpointquiz`
+- suporte para iOS, Android e Web
+- splash screen personalizada e ícones adaptativos
+
+## Observações
+
+A tela de perguntas ainda parece ter lógica de fluxo de quiz básica; botões de resposta e estados de progresso podem ser expandidos para uma experiência completa.
+
+---
+
+Desenvolvido para ser um quiz interativo de tecnologia com navegação simples, visual moderno e suporte cross-platform via Expo.
