@@ -1,65 +1,96 @@
-import { View, Text, StyleSheet, Image, Pressable} from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from 'expo-router';
+import React from 'react';
+import { NavigationContainer, NavigationIndependentTree } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text } from 'react-native'; // Import simples para a tela de Perfil temporária
 
-export default function HomeScreen(){
+// Importação das suas telas
+import HomeScreen from './HomeScreen';
+import QuestionsScreen from './questions';
+import ResultsScreen from './results';
 
-  const router = useRouter();
+import { Ionicons } from '@expo/vector-icons';
 
-  return(
-    <View style={styles.conteiner}>
-      <LinearGradient
-        colors={['#00AEFF', '#00FF4D']}
-        style={styles.conteiner}
-      >
-        <View 
-        style={{flexDirection:'row', justifyContent:'center', alignItems:'center', marginTop:50}}
-        >
-          <Image source={require("../../src/Images/logo-breakpoint.png")} />
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-          <Text style={{fontSize: 20, color:'white', fontWeight: 'bold'}}>Home Screen</Text>
-        </View>
-
-        <Text style={{fontSize: 25, color:'white', fontWeight: 'bold'}}>Bem-Vindos ao nosso Quiz</Text>
-
-        <Text style={{fontSize: 19, color:'white', fontWeight: 'bold', width: '80%', textAlign:'center'}}>
-          Prepare-se para testar os seus conhecimentos em uma série de perguntas sobre Tecnologias.
-        </Text>
-
-        <Image
-          source={require('../../src/Images/trophy.png')}
-          style={{}}
-        />
-
-        <Pressable 
-          style={styles.playButton}
-          onPress={() => router.navigate('/questions') } 
-        >
-          <Ionicons name="play" size={24} color="black" />
-          <Text style={{fontSize:20, color:'white', marginLeft: 10}}>Play</Text>
-        </Pressable>
-      </LinearGradient>
+// Tela de Perfil temporária apenas para a segunda aba não quebrar
+function ProfileScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Tela de Perfil</Text>
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create({
-  conteiner:{
-    flex:1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent:'space-between',
-    width: '100%',
-  },
-  playButton:{
-    backgroundColor: "#08F",
-    width: "80%",
-    marginBottom: 40,
-    alignItems:"center",
-    justifyContent: 'center',
-    padding:20,
-    borderRadius: 15,
-    flexDirection: 'row',
-  }
-})
+// 1. Definição da Stack (Fluxo do Quiz)
+function QuizStackNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        headerStyle: { backgroundColor: '#00AEFF' }, // Ajustado para a cor do seu app
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Início', headerShown: false }} // Esconde o topo na Home se quiser focar no seu gradiente
+      />
+      <Stack.Screen
+        name="Questions"
+        component={QuestionsScreen}
+        options={{ title: 'Perguntas', headerLeft: () => null }} // Correção para esconder a seta de voltar
+      />
+      <Stack.Screen
+        name="Results"
+        component={ResultsScreen}
+        options={{ title: 'Resultado', headerLeft: () => null }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+// 2. Navegação Principal (Tabs) - Este é o componente que exportamos como Raiz
+export default function AppRoutes() {
+  return (
+    <NavigationIndependentTree>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarActiveTintColor: '#00AEFF',
+            tabBarInactiveTintColor: 'gray',
+            tabBarIcon: ({ color, size }) => {
+              let iconName: "play-circle-outline" | "person-outline" = 'play-circle-outline';
+
+              if (route.name === 'QuizTab') {
+                iconName = 'play-circle-outline';
+              } else if (route.name === 'Profile') {
+                iconName = 'person-outline';
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+          })}
+        >
+          {/* Sua Stack do Quiz */}
+          <Tab.Screen
+            name='QuizTab'
+            component={QuizStackNavigator}
+            options={{ tabBarLabel: 'Jogar' }}
+          />
+
+          {/* Segunda aba */}
+          <Tab.Screen
+            name='Profile'
+            component={ProfileScreen}
+            options={{ tabBarLabel: 'Perfil' }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </NavigationIndependentTree>
+  );
+}

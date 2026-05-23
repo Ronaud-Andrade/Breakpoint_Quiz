@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
-import { router } from "expo-router";
+import { CommonActions } from '@react-navigation/native';
 
 const { width } = Dimensions.get("window");
 
 const circleSize = Math.min(width * 0.46, 180);
 
-export default function ResultsScreen() {
+export default function ResultsScreen({ navigation }: any) {
   const total = 10;
   const correct = 8;
   const percent = (correct / total) * 100;
@@ -60,14 +60,15 @@ export default function ResultsScreen() {
           <View style={styles.bottom}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => router.replace("/quiz")}
+              onPress={() => navigation.navigate('Questions')}
             >
               <Text style={styles.buttonText}>▶ Refazer Quiz</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.button}
-              onPress={() => router.replace("/")}
+              // Botão Voltar ao Início (limpando o histórico para não acumular pilhas)
+              onPress={() => navigation.navigate('Home')}
             >
               <Text style={styles.buttonText}>Voltar ao Início</Text>
             </TouchableOpacity>

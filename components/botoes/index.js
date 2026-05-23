@@ -1,14 +1,13 @@
 import {View, Pressable, TouchableOpacity, StyleSheet, Text} from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from 'expo-router';
 import { ResultsScreen } from '@/app/(tabs)/results';
+import { useNavigation } from '@react-navigation/native';
 
 export function Askbuttons(){
 
-    const router = useRouter();
+    const navigation = useNavigation();
 
     return(
-
     <View style={sytles.conteiner}>
         <TouchableOpacity style={sytles.buttons}>
             <Text style={sytles.textButtons}>A)</Text>
@@ -30,7 +29,7 @@ export function Askbuttons(){
             <Text style={sytles.textButtons}>Questão</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={sytles.playButton} onPress={() => router.navigate('/(tabs)/results')}>
+        <TouchableOpacity style={sytles.playButton} onPress={() => navigation.navigate('Results')}>
             <Ionicons name="play" size={24} color="white" />
             <Text style={sytles.textPlay}>Proxima Questão</Text>
         </TouchableOpacity>

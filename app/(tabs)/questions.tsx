@@ -3,7 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Askbuttons } from '../../components/botoes/index';
 
 
-export default function QuestionsScreen(){
+export default function QuestionsScreen({ navigation }: any){
   return(
     <View style={{flex:1}}>
         <LinearGradient
