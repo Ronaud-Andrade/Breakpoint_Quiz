@@ -1,64 +1,193 @@
-import { View, Text, StyleSheet, Image, Pressable} from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  useWindowDimensions,
+} from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+export default function HomeScreen({ navigation }: any) {
+  const { width, height } = useWindowDimensions();
 
-export default function HomeScreen({ navigation }: any){
+  const isDesktop = width >= 1024;
+  const isTablet = width >= 768 && width < 1024;
 
+  return (
+    <LinearGradient
+      colors={['#00AEFF', '#00FF4D']}
+      style={styles.container}
+    >
+      <View style={styles.content}>
+        <View style={styles.header}>
+          <Image
+            source={require('../../src/Images/logo-breakpoint.png')}
+            style={{
+              width: isDesktop
+                ? 100
+                : isTablet
+                ? 85
+                : width * 0.2,
 
-  return(
-    <View style={styles.conteiner}>
-      <LinearGradient
-        colors={['#00AEFF', '#00FF4D']}
-        style={styles.conteiner}
-      >
-        <View 
-        style={{flexDirection:'row', justifyContent:'center', alignItems:'center', marginTop:50}}
-        >
-          <Image source={require("../../src/Images/logo-breakpoint.png")} />
+              height: isDesktop
+                ? 100
+                : isTablet
+                ? 85
+                : width * 0.2,
 
-          <Text style={{fontSize: 20, color:'white', fontWeight: 'bold'}}>Home Screen</Text>
+              resizeMode: 'contain',
+            }}
+          />
+
+          <Text
+            style={[
+              styles.title,
+              {
+                fontSize: isDesktop
+                  ? 38
+                  : isTablet
+                  ? 32
+                  : width * 0.065,
+              },
+            ]}
+          >
+            Home Screen
+          </Text>
         </View>
 
-        <Text style={{fontSize: 25, color:'white', fontWeight: 'bold'}}>Bem-Vindos ao nosso Quiz</Text>
+        <Text
+          style={[
+            styles.subtitle,
+            {
+              fontSize: isDesktop
+                ? 32
+                : isTablet
+                ? 26
+                : width * 0.06,
+            },
+          ]}
+        >
+          Bem-Vindos ao nosso Quiz
+        </Text>
 
-        <Text style={{fontSize: 19, color:'white', fontWeight: 'bold', width: '80%', textAlign:'center'}}>
-          Prepare-se para testar os seus conhecimentos em uma série de perguntas sobre Tecnologias.
+        <Text
+          style={[
+            styles.description,
+            {
+              width: isDesktop ? '50%' : '90%',
+              fontSize: isDesktop
+                ? 20
+                : isTablet
+                ? 18
+                : width * 0.043,
+            },
+          ]}
+        >
+          Prepare-se para testar os seus conhecimentos
+          em perguntas sobre tecnologia.
         </Text>
 
         <Image
           source={require('../../src/Images/trophy.png')}
-          style={{}}
+          style={{
+            width: isDesktop
+              ? 300
+              : isTablet
+              ? 250
+              : width * 0.55,
+
+            height: isDesktop
+              ? 300
+              : isTablet
+              ? 250
+              : width * 0.55,
+
+            resizeMode: 'contain',
+          }}
         />
 
-        <Pressable 
-          style={styles.playButton}
-          onPress={() => navigation.navigate('Questions') } 
+        <Pressable
+          style={[
+            styles.playButton,
+            {
+              width: isDesktop
+                ? 350
+                : isTablet
+                ? 300
+                : '85%',
+            },
+          ]}
+          onPress={() => navigation.navigate('Questions')}
         >
-          <Ionicons name="play" size={24} color="black" />
-          <Text style={{fontSize:20, color:'white', marginLeft: 10}}>Play</Text>
+          <Ionicons
+            name="play"
+            size={26}
+            color="white"
+          />
+
+          <Text style={styles.playText}>
+            Play
+          </Text>
         </Pressable>
-      </LinearGradient>
-    </View>
-  )
+      </View>
+    </LinearGradient>
+  );
 }
 
 const styles = StyleSheet.create({
-  conteiner:{
-    flex:1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent:'space-between',
-    width: '100%',
+  container: {
+    flex: 1,
   },
-  playButton:{
-    backgroundColor: "#08F",
-    width: "80%",
-    marginBottom: 40,
-    alignItems:"center",
-    justifyContent: 'center',
-    padding:20,
-    borderRadius: 15,
+
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+
+  header: {
     flexDirection: 'row',
-  }
-})
+    alignItems: 'center',
+    gap: 15,
+  },
+
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
+  subtitle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  description: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: '600',
+    lineHeight: 26,
+  },
+
+  playButton: {
+    backgroundColor: '#008CFF',
+    paddingVertical: 16,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 10,
+  },
+
+  playText: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+});

@@ -1,41 +1,106 @@
-import { View, Text, StyleSheet} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  useWindowDimensions,
+} from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
-import { Askbuttons } from '../../components/botoes/index';
+import { Askbuttons } from '../../components/botoes';
 
+export default function QuestionsScreen() {
+  const { width } = useWindowDimensions();
 
-export default function QuestionsScreen({ navigation }: any){
-  return(
-    <View style={{flex:1}}>
-        <LinearGradient
-        style={styles.conteiner}
-        colors={['#00AEFF', '#00FF4D']}
+  const isDesktop = width >= 1024;
+  const isTablet = width >= 768 && width < 1024;
+
+  return (
+    <LinearGradient
+      style={styles.container}
+      colors={['#00AEFF', '#00FF4D']}
+    >
+      <View style={styles.content}>
+        <Text
+          style={[
+            styles.questionNumber,
+            {
+              fontSize: isDesktop
+                ? 28
+                : isTablet
+                ? 24
+                : width * 0.05,
+            },
+          ]}
         >
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: 20, color:'white', fontWeight: 'bold', marginTop: 60}}>Perguntas 1 de 1</Text> {/* Usar useState para o número de perguntas */}
-                
-                <Text style={{fontSize: 19, color:'white', fontWeight: 'bold', padding: 30, textAlign:'center'}}>
-                  Qual linguagem é usada para estilizar páginas web?
-                </Text>
+          Pergunta 1 de 1
+        </Text>
 
-                {/* Criar componentes para os botões de respostas */}
+        <Text
+          style={[
+            styles.question,
+            {
+              width: isDesktop ? '65%' : '90%',
+              fontSize: isDesktop
+                ? 32
+                : isTablet
+                ? 26
+                : width * 0.06,
+            },
+          ]}
+        >
+          Qual linguagem é usada para estilizar páginas web?
+        </Text>
 
-               <Askbuttons/> 
-            </View>
-
-
-
-
-        </LinearGradient>
-    </View>
-  )
+        <View
+          style={[
+            styles.buttonsContainer,
+            {
+              width: isDesktop
+                ? '40%'
+                : isTablet
+                ? '60%'
+                : '95%',
+            },
+          ]}
+        >
+          <Askbuttons />
+        </View>
+      </View>
+    </LinearGradient>
+  );
 }
 
 const styles = StyleSheet.create({
-  conteiner:{
-    flex:1,
-    width: '100%',
-    height: '100%',
+  container: {
+    flex: 1,
+  },
+
+  content: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    paddingHorizontal: 20,
+    paddingTop: 30,
+    paddingBottom: 95,
+  },
+
+  buttonsContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  questionNumber: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  question: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    lineHeight: 45,
+    marginTop: 20, // <--- Adicionado para criar espaço entre o número e a pergunta
   },
 });
