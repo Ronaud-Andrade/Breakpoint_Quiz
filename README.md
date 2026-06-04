@@ -1,39 +1,42 @@
 # Breakpoint Quiz
 
-Aplicativo móvel criado com Expo e React Native para um quiz de tecnologia.
+Aplicativo mobile em React Native + Expo para um quiz de tecnologia com navegação por abas e telas de início, perguntas e resultado.
 
 ## Visão geral
 
-O projeto contém uma interface simples com três telas principais:
-- Home: tela de boas-vindas com um botão para iniciar o quiz.
-- Perguntas: exibe a pergunta atual e opções de resposta.
-- Resultados: mostra o desempenho do usuário com pontuação e progresso.
+O projeto atual possui:
+- tela inicial com botão para iniciar o quiz;
+- tela de perguntas com opções de resposta;
+- tela de resultados com gráfico de acertos/erros;
+- uma aba extra de Perfil (placeholder no momento).
 
-O app usa `expo-router` para navegação e componentes Expo para gradientes, ícones e animações.
+A navegação é feita com Expo Router e React Navigation, com interface visual em gradiente e ícones Expo.
 
-## Tecnologias
+## Tecnologias utilizadas
 
-- Expo
-- React Native
+- Expo SDK 54
+- React Native 0.81.5
 - TypeScript
 - Expo Router
 - React Navigation
 - Expo Linear Gradient
-- React Native Circular Progress
 - Expo Haptics
+- react-native-chart-kit
+- React Native SVG
 
 ## Estrutura do projeto
 
-- `app/`: rotas e telas do aplicativo
-  - `(tabs)/index.tsx`: tela inicial
+- `app/`: rotas da aplicação e telas principais
+  - `(tabs)/index.tsx`: configuração das rotas e navegação por abas
+  - `(tabs)/HomeScreen.tsx`: tela inicial do quiz
   - `(tabs)/questions.tsx`: tela de perguntas
-  - `(tabs)/results.tsx`: tela de resultados
-- `components/`: componentes reutilizáveis e botões
-- `src/Images/`: imagens usadas no app
-- `assets/images/`: ícones e imagens de splash
-- `scripts/`: scripts auxiliares, como `reset-project.js`
+  - `(tabs)/results.tsx`: tela de resultado com gráfico
+- `components/`: componentes reutilizáveis, como `botoes/`
+- `src/Images/`: imagens usadas nas telas
+- `assets/images/`: ícones, splash e recursos visuais
+- `scripts/`: utilitários auxiliares
 
-## Instalação
+## Como rodar
 
 1. Instale as dependências:
 
@@ -41,52 +44,33 @@ O app usa `expo-router` para navegação e componentes Expo para gradientes, íc
 npm install
 ```
 
-2. Inicie o projeto com Expo:
+2. Inicie o app com Expo:
 
 ```bash
-npm start
+npx expo start
 ```
 
-3. Abra no emulador ou dispositivo:
+3. Abra no emulador, dispositivo físico ou navegador:
 
 ```bash
-npm run android
+npx expo start --android
+npx expo start --ios
+npx expo start --web
 ```
 
-ou
+## Scripts disponíveis
 
-```bash
-npm run ios
-```
-
-ou
-
-```bash
-npm run web
-```
-
-## Scripts úteis
-
-- `npm start`: inicia o servidor Expo
-- `npm run android`: inicia no Android
-- `npm run ios`: inicia no iOS
-- `npm run web`: executa a versão web
-- `npm run lint`: executa o ESLint
-- `npm run reset-project`: limpa ou reinicia configurações do projeto (definido em `scripts/reset-project.js`)
-
-## Configuração Expo
-
-O projeto está configurado em `app.json` com:
-- `slug`: `Breakpoint_Quiz`
-- `orientation`: `portrait`
-- `scheme`: `breakpointquiz`
-- suporte para iOS, Android e Web
-- splash screen personalizada e ícones adaptativos
+- `npx expo start`: inicia o servidor Expo
+- `npx expo start --android`: abre o app no Android
+- `npx expo start --ios`: abre o app no iOS
+- `npx expo start --web`: abre a versão web
+- `npx expo lint`: executa o ESLint do Expo
+- `npx expo start --reset-cache`: reinicia o cache do Expo
 
 ## Observações
 
-A tela de perguntas ainda parece ter lógica de fluxo de quiz básica; botões de resposta e estados de progresso podem ser expandidos para uma experiência completa.
+Este projeto ainda está em desenvolvimento. A lógica do quiz e o fluxo de pontuação podem ser evoluídos para uma experiência mais completa.
 
 ---
 
-Desenvolvido para ser um quiz interativo de tecnologia com navegação simples, visual moderno e suporte cross-platform via Expo.
+Desenvolvido com Expo e React Native para servir como base para um quiz interativo de tecnologia.
